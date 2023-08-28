@@ -1,3 +1,8 @@
+import csv
+import os
+
+
+DATA_PATH = os.path.join("../src/items.csv")
 class Item:
     """
     Класс для представления товара в магазине.
@@ -12,11 +17,10 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
-        self.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -33,6 +37,40 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= self.pay_rate
+
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, data_string):
+        name = data_string
+        self.__name = name[:10]
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open(DATA_PATH, "r") as f:
+            reader = csv.DictReader(f)
+
+            for line in reader:
+                item1 = (cls(line["name"],line["price"], line["quantity"]))
+                cls.all.append(item1)
+
+    @staticmethod
+    def string_to_number(string):
+        string = float(string)
+        return int(string)
+
+
+
+
+
+
+
+
+
+
 
 
 
