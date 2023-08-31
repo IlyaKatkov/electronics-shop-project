@@ -2,7 +2,6 @@ import csv
 import os
 
 
-DATA_PATH = os.path.join("../src/items.csv")
 class Item:
     """
     Класс для представления товара в магазине.
@@ -17,10 +16,15 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.__name = name
+        self.name = name
         self.price = price
         self.quantity = quantity
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.name}', {self.price }, {self.quantity})"
+
+    def __str__(self):
+        return f"{self.name}"
 
     def calculate_total_price(self) -> float:
         """
@@ -50,6 +54,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        DATA_PATH = os.path.join("../src/items.csv")
         with open(DATA_PATH, "r") as f:
             reader = csv.DictReader(f)
 
