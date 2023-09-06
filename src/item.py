@@ -21,10 +21,16 @@ class Item:
         self.quantity = quantity
 
     def __repr__(self):
-        return f"{self.__class__.__name__}('{self.name}', {self.price }, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
 
     def __str__(self):
         return f"{self.name}"
+
+
+    def __add__(self, other):
+        if issubclass(other.__class__, self.__class__):
+            return self.quantity + other.quantity
+        raise ValueError('Складывать можно только объекты Item и дочерние от них.')
 
     def calculate_total_price(self) -> float:
         """
@@ -43,6 +49,7 @@ class Item:
         self.price *= self.pay_rate
 
 
+
     @property
     def name(self):
         return self.__name
@@ -54,7 +61,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        DATA_PATH = os.path.join("../src/items.csv")
+        DATA_PATH = os.path.join("src", "items.csv")
         with open(DATA_PATH, "r") as f:
             reader = csv.DictReader(f)
 
@@ -66,6 +73,9 @@ class Item:
     def string_to_number(string):
         string = float(string)
         return int(string)
+
+
+
 
 
 

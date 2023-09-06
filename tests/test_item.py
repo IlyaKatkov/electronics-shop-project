@@ -1,6 +1,9 @@
 from src import item
 from src.item import Item
+from src.phone import Phone
+import pytest
 """Здесь надо написать тесты с использованием pytest для модуля item."""
+
 
 
 def test_calculate_total_price():
@@ -29,4 +32,14 @@ def test_repr():
 def test_str():
     item1 = Item('Смартфон', 10000, 20)
     assert str(item1) == 'Смартфон'
+
+def test_add():
+    item1 = Item("Смартфон", 10000, 30)
+    phone1 = Phone("iPhone 14", 120_000, 10, 2)
+    assert item1 + phone1 == 40
+    assert phone1 + phone1 == 20
+    with pytest.raises(ValueError):
+        assert phone1 + 10 == "Складывать можно только объекты Item и дочерние от них"
+        assert phone1 + 10 == "Складывать можно только объекты Item и дочерние от них"
+
 
