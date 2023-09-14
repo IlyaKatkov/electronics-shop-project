@@ -10,6 +10,8 @@ def test_calculate_total_price():
     check_class = item.Item("Смартфон", 10000, 20)
     assert check_class.calculate_total_price() == 200000
 
+
+
 def test_apply_discount():
     check_class = item.Item("Смартфон", 10000, 20)
     assert check_class.apply_discount() == None
@@ -24,6 +26,8 @@ def test_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
 
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv() == "Отсутствует файл item.csv"
 
 def test_repr():
     item1 = Item('Смартфон', 10000, 20)
